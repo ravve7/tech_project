@@ -95,7 +95,7 @@ def HomePageView(request):
 
                 width=900,
                 height=600,
-                title=go.layout.Title(text="chart : {} ".format(prod_name)),
+                #title=go.layout.Title(text="chart : {} ".format(prod_name)),
 
                 xaxis=dict(
                     autorange=True

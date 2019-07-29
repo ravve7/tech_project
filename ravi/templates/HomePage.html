@@ -4,56 +4,67 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>
     <script src="../static/js/home.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
 
 <body>
-<div>
-    <h1>Tech Project</h1>
+<div class="text-center">
+    <h1><u>Tech Project</u></h1><hr>
 </div>
 
 
-<h2>Inventory Table</h2>
-<div class="content">  
-    <div class="inventries">
-        <table id="myTable" >
-        
-        
-            <tr>
-                <th onclick="sortTable(0)">Product Name<img src="../static/images/picto_triangle.png"></th>
-                <th onclick="sortTable(1)">Product Date <img src="../static/images/picto_triangle.png"></th>
-                <th onclick="sortTable(2)">Inventory Level <img src="../static/images/picto_triangle.png"></th>
 
-            </tr>
-            {% for i in products %}
-            <tr>
-                <td>{{i.name}}</td>
-
-                <td>{{i.date}}</td>
-                <td>{{i.inv}}</td>
-            </tr>
-        
-            {% endfor %}
-        </table>
-    </div>
-
-    <div class="chart">
-
-
-        <div id="tester" style="width:600px;height:250px;">
-
-        </div>
-        <div class="col-md-12">
-            <form method="POST">
-                {% csrf_token %}
-                <h2>{{form.as_p}}</h2>
+<div class="container-fluid">  
+                <form method="POST" class="text-center">
+                    {% csrf_token %}
+                    <h4>{{form.as_p}}</h4>
                 
-            </form>
-            {{plot|safe}}
+                </form><hr>
+    <div class="row">
+
+        <div class="col-sm-5">
+            <div >
+                <h3 class="text-center"><u>Inventory</u></h3>
+                <table id="myTable">
+                    <tr>
+                        <th onclick="sortTable(0)">Product Name<img src="../static/images/picto_triangle.png"></th>
+                        <th onclick="sortTable(1)">Product Date <img src="../static/images/picto_triangle.png"></th>
+                        <th onclick="sortTable(2)">Inventory Level <img src="../static/images/picto_triangle.png"></th>
+                    </tr>
+                    {% for i in products %}
+                    <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.date}}</td>
+                        <td>{{i.inv}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        
+
+        <div class="col-sm-7">
+        <div >  
+            <div id="tester" style="width:90%;height:50%;" class="text-center" >  <h3 class="text-center">Chart : </h3>
+
+            
+                {{plot|safe}}
+            </div>
+        </div>
         </div>
     </div>
 
-
-</div>
+    
 
 
 <div> 
@@ -62,6 +73,49 @@
 </div>
 
 </body>
+
+
+
+<!-- Footer -->
+<footer class="page-footer font-small fixed-bottom" style="height: 15%" >
+
+    <!-- Copyright -->
+    <div class="row border" style="padding-bottom: 4px; margin-bottom: 4px" >
+
+        <div class="col-sm-4 border " style="margin-top: 1%; margin-bottom: 1%; margin-left: 1%; padding-bottom: 1%">
+
+            <h5><u>Add Product</u></h5>
+            <form class="" >
+                <input class="form-control text-center" type="text" placeholder="add product"
+                style="width:60%;padding-left: 10%;padding-right: 15%;">
+                <div class="" style="float: right">
+                <button class="btn btn-primary text-center"  type="submit">Add Product</button></div>
+            </form>
+
+        </div>
+        <div class="col-sm-7 border" style="margin-top: 1%; margin-bottom: 1%; margin-left: 1%; padding-bottom: 1%; margin-right: 1%; float: right">
+        
+            <div class="row text-center" style="margin-top: 1%">
+            <div class="col-sm 6">
+                <h5><u>Enter Inventory Value</u></h5>
+                <input type="text" placeholder="add volume">
+            </div>
+            <div class="col-sm-6">
+                <h5><u>Select Product</u></h5>
+                {{form.as_p}}
+                
+            </div>
+
+            </div>
+            <div class="" style="float: right">
+                <button class="btn btn-success text-center"  type="submit">Make Inventory</button></div>
+        </div>
+
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
 </html>
 
