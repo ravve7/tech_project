@@ -1,0 +1,39 @@
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+  
+}
+th {
+  cursor: pointer;
+}
+th img {
+  padding-top:-50px;
+  padding-left:4px;
+  cursor: pointer;
+}
+th {
+  background-color: #fff;
+ }
+tr:nth-child(odd){
+  background-color: #dddddd;
+}
+.content {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    
+      
+}
+.content .inventries  {
+    display: inline-flex;
+     width: 48%;
+}
+.content .chart {
+     display: inline-flex;
+    width: 48%;
+}

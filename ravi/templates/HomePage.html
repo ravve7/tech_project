@@ -1,0 +1,67 @@
+{% load static %}
+<html>
+    <link rel="stylesheet" href="../static/css/home.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>
+    <script src="../static/js/home.js"></script>
+
+
+<body>
+<div>
+    <h1>Tech Project</h1>
+</div>
+
+
+<h2>Inventory Table</h2>
+<div class="content">  
+    <div class="inventries">
+        <table id="myTable" >
+        
+        
+            <tr>
+                <th onclick="sortTable(0)">product_id <img src="../static/images/picto_triangle.png"></th>
+                <th onclick="sortTable(1)">product_name <img src="../static/images/picto_triangle.png"></th>
+                <th onclick="sortTable(2)">date <img src="../static/images/picto_triangle.png"></th>
+                <th onclick="sortTable(3)">inventory_level <img src="../static/images/picto_triangle.png"></th>
+            </tr>
+            {% for i in products %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.product_name}}</td>
+                <td>{{i.inventory__date}}</td>
+                <td>{{i.inventory__inventory_level}}</td>
+            </tr>
+        
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="chart">
+
+
+        <div id="tester" style="width:600px;height:250px;">
+
+        </div>
+        <div class="col-md-12">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>{{form.as_p}}</h2>
+                
+            </form>
+            {{plot|safe}}
+        </div>
+    </div>
+
+
+</div>
+
+
+<div> 
+    {% block content %}
+    {% endblock content %}
+</div>
+
+</body>
+
+</html>
+
