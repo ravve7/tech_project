@@ -4,7 +4,7 @@ i worked on tech project assignment
 
 to run this application first of all install dependencies which are present in requirement.txt
 
-with database fields an models using requests
+"with database fields and models using requests" and also with "Restapis"
 then run
  
  pipenv shell
@@ -21,5 +21,6 @@ then run
 
  to view table and graphs you can go to http://127.0.0.1:8000
 
+you can filter the table by clicking on name  of the products,date and inventories
 
- now with pure restapis
+ 
