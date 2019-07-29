@@ -7,6 +7,8 @@ from rest_framework import viewsets, permissions
 from .serializers import ProductSerializer, inventorySerializer
 import plotly.graph_objs as go
 from plotly.offline import plot
+from  datetime import datetime
+from . import jpqrser
 import requests
 
 
@@ -25,9 +27,26 @@ def HomePageView(request):
 
     context = {}
     context['form'] = ProductForm()
+    context['products']=[]
+    data = jpqrser.all_data()
+    for each in data:
+        p_name=each
+        for dt in data[p_name]:
+            print("---->"+each)
+            p_date=datetime.strptime(str(dt[0][:24]).split(".")[0], "%Y-%m-%dT%H:%M:%S")
+            p_inv=dt[1]
+            l_data= dict()
+            l_data.setdefault('name', p_name)
+            l_data.setdefault('date', (p_date).strftime("%d-%m-%Y %H:%M:%S"))
+            l_data.setdefault('inv', p_inv)
+            context['products'].append(l_data)
 
-    context['products'] = Products.objects.values(
-        'id', 'product_name', 'inventory__date', 'inventory__inventory_level')
+
+
+    # context['products'] = Products.objects.values(
+    #     'id', 'product_name', 'inventory__date', 'inventory__inventory_level')
+    for i in context['products']:
+        print(i['name'])
     inv=[]
     date=[]
 
@@ -37,17 +56,34 @@ def HomePageView(request):
 
         if form.is_valid():
 
-            id_of_product = (Products.objects.filter(product_name=str(
-                form.cleaned_data["selectproduct"])).values_list('pk', flat=True)[0])
+            prod_name=str(form.cleaned_data["selectproduct"])
 
-            name = Products.objects.filter(pk=id_of_product).values()[
-                0]['product_name']
-            context['prod_name'] = name
 
-            for h in inventory.objects.filter(
-                    products_id=id_of_product):
-                date.append((h.date).strftime("%d-%m-%Y %H:%M:%S"))
-                inv.append(h.inventory_level)
+            # id_of_product = (Products.objects.filter(product_name=str(
+            #     form.cleaned_data["selectproduct"])).values_list('pk', flat=True)[0])
+            #
+            # name = Products.objects.filter(pk=id_of_product).values()[
+            #     0]['product_name']
+            # context['prod_name'] = name
+            #
+            # for h in inventory.objects.filter(
+            #         products_id=id_of_product):
+            #     date.append((h.date).strftime("%d-%m-%Y %H:%M:%S"))
+            #     inv.append(h.inventory_level)
+
+            getData=data[prod_name]
+            context['products'] = []
+            print(getData)
+            for dt in getData:
+                date.append(datetime.strptime(str(dt[0][:24]).split(".")[0], "%Y-%m-%dT%H:%M:%S"))
+                inv.append(dt[1])
+                p_date = datetime.strptime(str(dt[0][:24]).split(".")[0], "%Y-%m-%dT%H:%M:%S")
+                p_inv = dt[1]
+                l_data = dict()
+                l_data.setdefault('name', prod_name)
+                l_data.setdefault('date', datetime.strptime(str(dt[0][:24]).split(".")[0], "%Y-%m-%dT%H:%M:%S"))
+                l_data.setdefault('inv', dt[1])
+                context['products'].append(l_data)
 
             trace1 = go.Scatter(
                 x=date,
@@ -59,7 +95,7 @@ def HomePageView(request):
 
                 width=900,
                 height=600,
-                title=go.layout.Title(text="chart : {} ".format(name)),
+                title=go.layout.Title(text="chart : {} ".format(prod_name)),
 
                 xaxis=dict(
                     autorange=True
