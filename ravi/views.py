@@ -34,7 +34,8 @@ def HomePageView(request):
             l_data.setdefault('date', (p_date).strftime("%d-%m-%Y %H:%M:%S"))
             l_data.setdefault('inv', p_inv)
             context['products'].append(l_data)
-    inv=[],date=[]
+    inv=[]
+    date=[]
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
