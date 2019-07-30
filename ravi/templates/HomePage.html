@@ -19,7 +19,7 @@
 
 <body>
 <div class="text-center">
-    <h1><u>Tech Project</u></h1><hr>
+    <h1><u>{% block title %}Tech Project{% endblock %}</u></h1><hr>
 </div>
 
 
@@ -63,23 +63,12 @@
         </div>
         </div>
     </div>
-
-    
-
-
-<div> 
-    {% block content %}
-    {% endblock content %}
-</div>
-
 </body>
 
 
 
-<!-- Footer -->
 <footer class="page-footer font-small fixed-bottom" style="height: 15%" >
 
-    <!-- Copyright -->
     <div class="row border" style="padding-bottom: 4px; margin-bottom: 4px" >
 
         <div class="col-sm-4 border " style="margin-top: 1%; margin-bottom: 1%; margin-left: 1%; padding-bottom: 1%">
@@ -103,19 +92,18 @@
             <div class="col-sm-6">
                 <h5><u>Select Product</u></h5>
                 {{form.as_p}}
-                
             </div>
-
             </div>
             <div class="" style="float: right">
                 <button class="btn btn-success text-center"  type="submit">Make Inventory</button></div>
         </div>
-
     </div>
-    <!-- Copyright -->
-
 </footer>
-<!-- Footer -->
+
+{% block content %}
+{% endblock content %}
+
+
 
 </html>
 
